@@ -1,0 +1,8 @@
+header h1 {
+	margin: 0;
+	padding: 0;
+	background-color: tomato;
+	line-height: 80px;
+	text-align: center;
+	color: #f1f3f5;
+}
