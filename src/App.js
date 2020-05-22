@@ -21,11 +21,32 @@ class App extends React.Component {
 		console.log(this.idx);
 		// 데이터 등록
 		this.setState({
-			todos: [...this.state.todos, todoData]
+			todos: this.state.todos.concat(todoData)
 		});
 		console.log(...this.state.todos);
 	};
-
+	onDelete = id => {
+		console.log(id);
+		const newTodos = this.state.todos.filter(todo => todo.idx !== id);
+		console.log(newTodos);
+		this.setState({
+			todos: newTodos
+		});
+	};
+	onToggle = id => {
+		const filted = this.state.todos.map(todo => {
+			if (todo.idx === id) {
+				return { ...todo, checked: !todo.checked };
+			}
+			return todo;
+		});
+		console.log(filted);
+		console.dir(this.state.todos);
+		//바꾼 값을 다시 setState로 등록한다.
+		this.setState({
+			todos: filted
+		});
+	};
 	render() {
 		return (
 			<div>
@@ -33,7 +54,11 @@ class App extends React.Component {
 					<h1>오늘 뭐하지?</h1>
 				</header>
 				<CreateForm onCreate={this.onCreate} />
-				<TodoList todos={this.state.todos} />
+				<TodoList
+					todos={this.state.todos}
+					onDelete={this.onDelete}
+					onToggle={this.onToggle}
+				/>
 			</div>
 		);
 	}
